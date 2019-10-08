@@ -29,4 +29,13 @@ public class CountryController
         rtnCountries.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
         return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
     }
+
+    //localhost:2019/names/size/{number}
+    @GetMapping(value = "/names/size/{number}", produces = {"application/json"})
+    public ResponseEntity<?> getCountryByNameLength(@PathVariable int number)
+    {
+        ArrayList<Country> rtnCountries = CountriesProjectApplication.ourCountryList.findCountries(c -> c.getName().length() >= number);
+        rtnCountries.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
+        return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
+    }
 }
