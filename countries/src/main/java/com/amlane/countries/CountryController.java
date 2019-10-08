@@ -38,4 +38,31 @@ public class CountryController
         rtnCountries.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
         return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
     }
+
+    //localhost:2019/population/size/{people}
+    @GetMapping(value = "/population/size/{people}", produces = {"application/json"})
+    public ResponseEntity<?> getByPopulation(@PathVariable int people)
+    {
+        ArrayList<Country> rtnCountries = CountriesProjectApplication.ourCountryList.findCountries(c -> c.getPopulation() >= people);
+        rtnCountries.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
+        return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
+    }
+
+    //localhost:2019/population/min
+    @GetMapping(value = "/population/min", produces = {"application/json"})
+    public ResponseEntity<?> getSmallestPopulation()
+    {
+        ArrayList<Country> rtnCountries = CountriesProjectApplication.ourCountryList.countryList;
+        rtnCountries.sort((c1, c2) -> c1.getPopulation() - c2.getPopulation());
+        return new ResponseEntity<>(rtnCountries.get(0), HttpStatus.OK);
+    }
+
+    //localhost:2019/population/min
+    @GetMapping(value = "/population/max", produces = {"application/json"})
+    public ResponseEntity<?> getLargestPopulation()
+    {
+        ArrayList<Country> rtnCountries = CountriesProjectApplication.ourCountryList.countryList;
+        rtnCountries.sort((c1, c2) -> c2.getPopulation() - c1.getPopulation());
+        return new ResponseEntity<>(rtnCountries.get(0), HttpStatus.OK);
+    }
 }
