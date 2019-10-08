@@ -46,8 +46,8 @@ public class CountryPopulationController
     public ResponseEntity<?> getMedianPopulation()
     {
         ArrayList<Country> rtnCountries = CountriesProjectApplication.ourCountryList.countryList;
-        int median = Math.round(rtnCountries.size() / 2);
-        rtnCountries.sort((c1, c2) -> c2.getPopulation() - c1.getPopulation());
+        int median = rtnCountries.size() / 2;
+        rtnCountries.sort((c1, c2) -> (int)(c1.getPopulation() - c2.getPopulation()));
         return new ResponseEntity<>(rtnCountries.get(median), HttpStatus.OK);
 
     }
