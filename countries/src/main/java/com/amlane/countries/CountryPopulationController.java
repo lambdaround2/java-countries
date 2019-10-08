@@ -28,7 +28,7 @@ public class CountryPopulationController
     public ResponseEntity<?> getSmallestPopulation()
     {
         ArrayList<Country> rtnCountries = CountriesProjectApplication.ourCountryList.countryList;
-        rtnCountries.sort((c1, c2) -> c1.getPopulation() - c2.getPopulation());
+        rtnCountries.sort((c1, c2) -> (int)(c1.getPopulation() - c2.getPopulation()));
         return new ResponseEntity<>(rtnCountries.get(0), HttpStatus.OK);
     }
 
